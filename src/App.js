@@ -18,8 +18,8 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-      <NavBar/>
+      <div className='appPage' style={{color:"black",backgroundColor:"#F3F2F2",width:"100%",height:"1000px"}}>
+        <NavBar/>
         <Route exact path='/' component={HomePage}/>
         <Route exact path='/pokebowl' component={PokeBowl}/>
         <Route exact path='/entree' component={Entree}/>

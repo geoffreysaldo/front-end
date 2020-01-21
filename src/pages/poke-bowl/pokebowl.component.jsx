@@ -4,6 +4,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Paper from '@material-ui/core/Paper';
 
 import './pokebowl.styles.scss'
+import { FormHelperText } from '@material-ui/core';
 
 class PokeBowl extends Component {
   constructor(props){
@@ -55,7 +56,7 @@ class PokeBowl extends Component {
     render() {
         return (
           <div className="page">
-          <h1>
+          <h1 className="title">
               PokeBowls
           </h1>
           <Paper className="paper">
