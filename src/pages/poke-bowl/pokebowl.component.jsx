@@ -3,8 +3,14 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Paper from '@material-ui/core/Paper';
 
+import { connect } from 'react-redux';
+
+import { addCommandProduct } from '../../redux/command-products/command_products.actions'
+
 import './pokebowl.styles.scss'
-import { FormHelperText } from '@material-ui/core';
+
+
+import Button from '@material-ui/core/Button';
 
 class PokeBowl extends Component {
   constructor(props){
@@ -66,6 +72,7 @@ class PokeBowl extends Component {
             (
             <GridListTile style={{height:"300px",padding:"10px"}} key={tile.id} >
               <h3 className="productTitle">{tile.name}</h3>
+              <Button onClick={() => this.props.addCommandProduct(tile.name)}>ajouter produit</Button>
             </GridListTile>
             ))
           }
@@ -77,4 +84,9 @@ class PokeBowl extends Component {
       }
 }
 
-export default PokeBowl
+
+const mapDispatchedToProps = dispatch => ({
+  addCommandProduct: product => dispatch(addCommandProduct(product)),
+})
+
+export default connect(null,mapDispatchedToProps)(PokeBowl)
