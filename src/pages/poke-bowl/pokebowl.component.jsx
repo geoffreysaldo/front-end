@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Paper from '@material-ui/core/Paper';
+import { getProducts } from '../../services/api_service';
 
 import { connect } from 'react-redux';
 
 import { addCommandProduct } from '../../redux/command-products/command_products.actions'
+import {setPokeBowls} from '../../redux/poke-bowls/poke_bowl.actions'
 
 import './pokebowl.styles.scss'
 
@@ -16,48 +18,14 @@ class PokeBowl extends Component {
   constructor(props){
     super(props)
   }
+  
+  componentDidMount(){
+    getProducts("poke").then(
+      category => category[0].products.map(product => this.props.setPokeBowls(product))
+    )
+  }
     
-  pokebowl = [{"id":1,
-               "name":"Saumon classique",
-               "image":"image saumon",
-               "prix":10.90,
-              },
-              {
-               "id":2,
-               "name":"Thon classique",
-               "image":"image thon",
-               "prix":11.90,
-              },
-              {
-               "id":3,
-               "name":"dorade classique",
-               "image":"image dorade",
-               "prix":10.90,
-              },
-              {"id":4,
-              "name":"Saumon classique",
-              "image":"image saumon",
-              "prix":10.90,
-             },
-             {
-              "id":5,
-              "name":"Thon classique",
-              "image":"image thon",
-              "prix":11.90,
-             },
-             {
-              "id":6,
-              "name":"dorade classique",
-              "image":"image dorade",
-              "prix":10.90,
-             }]
-    
-    
-    
-    
-    
-    
-    
+  
     
     render() {
         return (
@@ -66,16 +34,14 @@ class PokeBowl extends Component {
               PokeBowls
           </h1>
           <Paper className="paper">
-          <GridList cols={3} >
+          <GridList cols={3} className="grid">
           {
-          this.pokebowl.map(tile => 
+          this.props.pokeBowls.map((tile,index) => 
             (
-            <GridListTile style={{height:"300px",padding:"10px"}} key={tile.id} >
+            <GridListTile className="tile" style={{height:"300px",padding:"10px"}} key={index} >
               <h3 className="productTitle">{tile.name}</h3>
-              <Button onClick={() => this.props.addCommandProduct(tile.name)}>ajouter produit</Button>
             </GridListTile>
-            ))
-          }
+            ))}
           </GridList>
           </Paper>
           </div>
@@ -83,10 +49,22 @@ class PokeBowl extends Component {
 
       }
 }
+const mapStateToProps = state => ({
+  pokeBowls : state.pokeBowls.pokeBowls
+})
 
 
 const mapDispatchedToProps = dispatch => ({
   addCommandProduct: product => dispatch(addCommandProduct(product)),
+  setPokeBowls:products => dispatch(setPokeBowls(products))
 })
 
-export default connect(null,mapDispatchedToProps)(PokeBowl)
+export default connect(mapStateToProps,mapDispatchedToProps)(PokeBowl)
+
+          /*this.props.pokeBowls.map(tile => 
+            (
+            <GridListTile style={{height:"300px",padding:"10px"}} key={tile.id} >
+              <h3 className="productTitle">{tile.name}</h3>
+              <Button onClick={() => this.props.addCommandProduct(tile.name)}>ajouter produit</Button>
+            </GridListTile>
+            ))      */  
