@@ -4,6 +4,8 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Paper from '@material-ui/core/Paper';
 import { getProducts } from '../../services/api_service';
 
+import CartProduct from '../../components/cart-products/cart_product.component'
+
 import { connect } from 'react-redux';
 
 import { addCommandProduct } from '../../redux/command-products/command_products.actions'
@@ -39,7 +41,7 @@ class PokeBowl extends Component {
           this.props.pokeBowls.map((tile,index) => 
             (
             <GridListTile className="tile" style={{height:"300px",padding:"10px"}} key={index} >
-              <h3 className="productTitle">{tile.name}</h3>
+              <h3 style={{width:"300px"}} className="title">{tile.name}</h3>
             </GridListTile>
             ))}
           </GridList>
