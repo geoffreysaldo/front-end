@@ -4,7 +4,6 @@ import GridListTile from '@material-ui/core/GridListTile';
 import Paper from '@material-ui/core/Paper';
 import { getProducts } from '../../services/api_service';
 
-import CartProduct from '../../components/cart-products/cart_product.component'
 
 import { connect } from 'react-redux';
 
@@ -20,15 +19,16 @@ class PokeBowl extends Component {
   constructor(props){
     super(props)
   }
-  
+
   componentDidMount(){
     getProducts("poke").then(
       category => category[0].products.map(product => this.props.setPokeBowls(product))
     )
   }
-    
-  
-    
+
+
+
+
     render() {
         return (
           <div className="page">
@@ -38,10 +38,11 @@ class PokeBowl extends Component {
           <Paper className="paper">
           <GridList cols={3} className="grid">
           {
-          this.props.pokeBowls.map((tile,index) => 
+          this.props.pokeBowls.map((tile,index) =>
             (
             <GridListTile className="tile" style={{height:"300px",padding:"10px"}} key={index} >
-              <h3 style={{width:"300px"}} className="title">{tile.name}</h3>
+              <h3 className="title">{tile.name}</h3>
+              <Button onClick={() => this.props.addCommandProduct(tile.name)} >ajouter</Button>
             </GridListTile>
             ))}
           </GridList>
@@ -62,11 +63,3 @@ const mapDispatchedToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps,mapDispatchedToProps)(PokeBowl)
-
-          /*this.props.pokeBowls.map(tile => 
-            (
-            <GridListTile style={{height:"300px",padding:"10px"}} key={tile.id} >
-              <h3 className="productTitle">{tile.name}</h3>
-              <Button onClick={() => this.props.addCommandProduct(tile.name)}>ajouter produit</Button>
-            </GridListTile>
-            ))      */  

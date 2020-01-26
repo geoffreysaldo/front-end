@@ -1,15 +1,27 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import './cart-dropdown.styles.scss'
 import Button from '@material-ui/core/Button';
 
-export default function CartDropdown () {
+const CartDropdown  = (props) => (
 
-
-    return (
         <div className='cart-dropdown'>
-            <div className="cart-item"></div>
-            <Button variant="contained" color="primary" >Commander</Button>
+        <div style={{overflowY :"scroll"}}>
+        {
+          props.commandProducts.map((product,index) => (
+            <h5 key = {index }>{product}</h5>
+          ))
+        }
+        </div>
+            <Button variant="contained" color="primary" onClick={ () => console.log(props)} >Commander</Button>
         </div>
       );
-}
+
+
+
+const mapStateToProps = state => ({
+  commandProducts : state.commandProducts.commandProducts
+})
+
+export default connect(mapStateToProps)(CartDropdown)
