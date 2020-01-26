@@ -9,8 +9,10 @@ import './nav-bar.styles.scss'
 
 import CartIcon from '../cart-icon/cart_icon.component'
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import { connect } from 'react-redux' 
 
-export default function NavBar() {
+
+ const NavBar = (hidden) => {
 
   const [value, setValue] = React.useState('Homepage');
 
@@ -29,7 +31,15 @@ export default function NavBar() {
         <BottomNavigationAction  label="Formule midi" value="Formule midi" component={Link} to={"/formule"}/>
         <CartIcon className="cart-icon"/>
       </BottomNavigation>
-      <CartDropdown/>
+      {hidden.hidden ? null : <CartDropdown />}
     </MuiThemeProvider>
   );
 }
+
+const mapStateToProps = state => ({
+  hidden : state.cart.hidden
+})
+
+export default connect(mapStateToProps)(NavBar)
+
+

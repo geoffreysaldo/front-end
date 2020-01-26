@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import './cart-dropdown.styles.scss'
 import Button from '@material-ui/core/Button';
+import CartItem from '../cart-item/cart_item.component'
 
 const CartDropdown  = (props) => (
 
@@ -10,7 +11,7 @@ const CartDropdown  = (props) => (
         <div style={{overflowY :"scroll"}}>
         {
           props.commandProducts.map((product,index) => (
-            <h5 key = {index }>{product}</h5>
+            <CartItem key={index} product={product.name} price={product.price} quantity={product.quantity}/>
           ))
         }
         </div>

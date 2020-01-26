@@ -42,7 +42,7 @@ class PokeBowl extends Component {
             (
             <GridListTile className="tile" style={{height:"300px",padding:"10px"}} key={index} >
               <h3 className="title">{tile.name}</h3>
-              <Button onClick={() => this.props.addCommandProduct(tile.name)} >ajouter</Button>
+              <Button onClick={() => this.props.addCommandProduct({name: tile.name, price : tile.price})} >ajouter</Button>
             </GridListTile>
             ))}
           </GridList>

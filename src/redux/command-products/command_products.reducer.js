@@ -1,3 +1,6 @@
+import { addItemToCommand } from './command_products.utils'
+
+
 const INITIAL_STATE = {
     commandProducts : []
   }
@@ -7,7 +10,7 @@ const INITIAL_STATE = {
       case 'ADD_COMMAND_PRODUCT':
         return {
           ...state,
-          commandProducts: [...state.commandProducts,action.payload]
+          commandProducts: addItemToCommand(state.commandProducts,action.payload)
          }
       default:
         return state;
