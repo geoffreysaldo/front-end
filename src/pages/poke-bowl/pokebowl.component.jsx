@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 
 import { addCommandProduct } from '../../redux/command-products/command_products.actions'
 import {setPokeBowls} from '../../redux/poke-bowls/poke_bowl.actions'
+import {resetPokeBowls} from '../../redux/poke-bowls/poke_bowl.actions'
 
 import './pokebowl.styles.scss'
 
@@ -21,6 +22,7 @@ class PokeBowl extends Component {
   }
 
   componentDidMount(){
+    this.props.resetPokeBowls()
     getProducts("poke").then(
       category => category[0].products.map(product => this.props.setPokeBowls(product))
     )
@@ -59,7 +61,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchedToProps = dispatch => ({
   addCommandProduct: product => dispatch(addCommandProduct(product)),
-  setPokeBowls:products => dispatch(setPokeBowls(products))
+  setPokeBowls:products => dispatch(setPokeBowls(products)),
+  resetPokeBowls:() => dispatch(resetPokeBowls())
+
 })
 
 export default connect(mapStateToProps,mapDispatchedToProps)(PokeBowl)

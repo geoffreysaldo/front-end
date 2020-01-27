@@ -9,6 +9,10 @@ const INITIAL_STATE = {
           ...state,
           pokeBowls: [...state.pokeBowls,action.payload]
          }
+      case 'RESET_POKE_BOWLS':
+        return {
+          pokeBowls : []
+         }
       default:
         return state;
     }
