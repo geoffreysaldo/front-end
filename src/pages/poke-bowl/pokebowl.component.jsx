@@ -12,9 +12,8 @@ import {setPokeBowls} from '../../redux/poke-bowls/poke_bowl.actions'
 import {resetPokeBowls} from '../../redux/poke-bowls/poke_bowl.actions'
 
 import './pokebowl.styles.scss'
-
-
 import Button from '@material-ui/core/Button';
+
 
 class PokeBowl extends Component {
   constructor(props){
@@ -25,7 +24,7 @@ class PokeBowl extends Component {
     this.props.resetPokeBowls()
     getProducts("poke").then(
       category => category[0].products.map(product => this.props.setPokeBowls(product))
-    )
+  )
   }
 
 
@@ -39,6 +38,7 @@ class PokeBowl extends Component {
           </h1>
           <Paper className="paper">
           <GridList cols={3} className="grid">
+
           {
           this.props.pokeBowls.map((tile,index) =>
             (

@@ -5,13 +5,14 @@ export default createMuiTheme({
     MuiBottomNavigation:{
       root:{
         backgroundColor:"#f2cf4c",
+        height:"90px"
       }
     },
     MuiBottomNavigationAction: {
       root: {
         fontWeight: "bold",
-        width: "100%",
-
+        height:"50px",
+        marginTop:"40px"
       },
       label:{
         fontSize:"14px",
