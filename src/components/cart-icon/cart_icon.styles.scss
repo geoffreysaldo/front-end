@@ -1,5 +1,4 @@
 .cart-icon{
-    padding-left : 300px;;
     width:56px;
     height:56px;
     position:relative;
@@ -7,10 +6,14 @@
     align-items:center;
     justify-content:center;
     cursor:pointer;
+    color:white;
+
 
     .shopping-icon{
         width:24px;
-        height:24px
+        height:24px;
+
+
     }
 
     .item-count{

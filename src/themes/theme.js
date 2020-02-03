@@ -4,23 +4,26 @@ export default createMuiTheme({
   overrides: {
     MuiBottomNavigation:{
       root:{
-        backgroundColor:"#f2cf4c",
+        background: 'linear-gradient(#343333, #090909)',
+        boxShadow: '0 3px 6px rgba(0,0,0,0.25)',
+        borderTop: '1px solid #343434',
         height:"90px"
       }
     },
     MuiBottomNavigationAction: {
       root: {
         fontWeight: "bold",
-        height:"50px",
+        height:"35px",
+        maxWidth:"100px",
         marginTop:"40px"
       },
       label:{
-        fontSize:"14px",
+        fontSize:"13px",
         '&$selected': {
-          fontSize: "18px",
-          color:"black",
+          fontSize: "15px",
+          color:"white",
         },
-        color:"#2b2e2c",
+        color:"#c6c6c6",
         fontFamily:"Gelasio"
       }
     }

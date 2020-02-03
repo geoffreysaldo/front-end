@@ -4,7 +4,6 @@ import { deleteCommandProduct } from '../../redux/command-products/command_produ
 
 import './cart-dropdown.styles.scss'
 import Button from '@material-ui/core/Button';
-import CartItem from '../cart-item/cart_item.component'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';

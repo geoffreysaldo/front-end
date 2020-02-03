@@ -2,14 +2,14 @@ import React from 'react';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
 
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import theme from '../../themes/theme.js'
 import './nav-bar.styles.scss'
 
-import CartIcon from '../cart-icon/cart_icon.component'
+import ButtonShopContainer from '../button-shop-container/button_shop_container.component'
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+
 import { connect } from 'react-redux'
 
 
@@ -30,9 +30,7 @@ import { connect } from 'react-redux'
         <BottomNavigationAction  label="Désserts" value="Désserts" component={Link} to={"/dessert"}/>
         <BottomNavigationAction  label="Boissons" value="Boissons" component={Link} to={"/boisson"}/>
         <BottomNavigationAction  label="Formule midi" value="Formule midi" component={Link} to={"/formule"}/>
-        <Button>Se connecter</Button>
-        <Button>S'inscrire</Button>
-        <CartIcon className="cart-icon"/>
+        <ButtonShopContainer/>
       </BottomNavigation>
       {hidden.hidden ? null : <CartDropdown />}
     </MuiThemeProvider>

@@ -9,7 +9,7 @@ import Entree from './pages/entree/entree.component'
 import Dessert from './pages/dessert/dessert.component'
 import Boisson from './pages/boisson/boisson.component'
 import Formule from './pages/formule/formule.component'
-
+import Inscription from './pages/inscription/inscription.component'
 
 class App extends Component {
 
@@ -27,6 +27,7 @@ class App extends Component {
         <Route exact path='/dessert' component={Dessert}/>
         <Route exact path='/boisson' component={Boisson}/>
         <Route exact path='/formule' component={Formule}/>
+        <Route exact path='/inscription' component={Inscription}/>
       </div>
     )
   }
