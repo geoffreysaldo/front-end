@@ -15,7 +15,7 @@ import jssTemplate from 'jss-plugin-template';
       background: 'linear-gradient(#e74042, #b20e10)',
       borderRadius: '3px',
       fontSize: '16px',
-      marginTop:'10px',
+      marginTop:'30px',
       marginRight:'10px',
       border: '0px',
       color: 'white',
