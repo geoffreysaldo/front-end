@@ -3,7 +3,13 @@ import Paper from '@material-ui/core/Paper';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import ButtonNextStep from '../button-next-step/button_next_step.component';
+
+import { verifUnicityMail } from '../../services/api_service'
 import './form_parameter.styles.scss'
+
+import { setEtape } from '../../redux/etapes-inscription/etapes_inscription.actions'
+import { connect } from 'react-redux';
+
 
 class FormParameter extends Component {
 
@@ -49,7 +55,7 @@ class FormParameter extends Component {
       }
       else {
         this.setState({
-          checkEmail: "", emailValidator: false
+          email: email.toLowerCase(), checkEmail: "", emailValidator: false
         }, () => {
           resolve(true)
         })
@@ -62,7 +68,7 @@ class FormParameter extends Component {
       let re = /[A-Z0-9._%+-]{8,30}/igm;
       if(password == "" || !re.test(password)){
         this.setState({
-          checkPassword: "Mot de passe non valide, 8 caractères minimum", passwordValidator: true
+          checkPassword: "8 caractères minimum", passwordValidator: true
         }, () => {
             reject("erreur de mot de passe")
         })
@@ -95,9 +101,20 @@ class FormParameter extends Component {
 
   formSubmitHandler = () => {
      this.checkEmail(this.state.email).then(()=>{
-       this.checkPassword(this.state.password).then((result) => {
+       this.checkPassword(this.state.password).then(() => {
          this.checkConfirmation(this.state.password, this.state.confirmation).then(() => {
-          console.log("la vérification front-end sont bonnes")
+          verifUnicityMail(this.state.email).then(result => {
+            if(result.error){
+              this.setState({
+                checkEmail: result.error, emailValidator: true
+              })
+            }
+            else {
+              this.setState({
+                checkEmail: "", emailValidator: false
+              }, () => this.props.setEtape(2))
+            }
+          })
          }).catch(err => {
            console.log(err)
          })
@@ -150,7 +167,7 @@ class FormParameter extends Component {
         <ButtonNextStep customClick={this.formSubmitHandler} />
     </Paper>
     <div style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-around',height:'100px',width:'450px',fontSize:'11px'}}>
-      <div style={{display:'flex'}}>1- Paramètres du compte</div> 
+      <div style={{display:'flex',color:'red'}}>1- Paramètres du compte</div> 
       <div style={{display:'flex'}}>2- Informations personnelles</div>
       <div style={{display:'flex'}}>3- Validation</div>
       </div>
@@ -159,5 +176,7 @@ class FormParameter extends Component {
 }
 }
 
-
-export default FormParameter
+const mapDispatchedToProps = dispatch => ({
+  setEtape: etape => dispatch(setEtape(etape))
+})
+export default connect(null,mapDispatchedToProps)(FormParameter)

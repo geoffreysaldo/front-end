@@ -6,6 +6,7 @@ import entreeReducer from './entrees/entree.reducer';
 import dessertReducer from './desserts/dessert.reducer';
 import boissonsReducer from './boissons/boisson.reducer';
 import formulesReducer from './formules/formule.reducer';
+import etapeReducer from './etapes-inscription/etapes_inscription.reducer'
 
 export default combineReducers({
     commandProducts:commandProductsReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
     entrees:entreeReducer,
     desserts:dessertReducer,
     boissons:boissonsReducer,
-    formules:formulesReducer
+    formules:formulesReducer,
+    etape:etapeReducer
 })

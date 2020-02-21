@@ -12,21 +12,15 @@
 
 .paperInscription{
     display:flex;
-    flex-direction:row;
-    justify-content: space-around;
+    flex-direction:column;
+    justify-content: center;
     align-items:center;
-    width:60%;
+    min-width:700px;
+    width:50%;
     margin: 10px;
 }
 
-.stepper{
-    display:flex;
-    align-items:center;
-    justify-content: center;
-    width:70%;
-    padding: 10px;
 
-}
 
 .panneau{
     width:30%;
