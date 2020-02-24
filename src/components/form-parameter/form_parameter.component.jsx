@@ -162,7 +162,6 @@ class FormParameter extends Component {
                        value={this.state.confirmation} 
                        onChange={this.handleChangeConfirmation} /> 
             <span style={{color:"red", fontSize:"13px", fontStyle:"italic", marginLeft:"10px"}}>{this.state.checkConfirmation}</span>
-                        
         </FormControl>
         <ButtonNextStep customClick={this.formSubmitHandler} />
     </Paper>

@@ -32,19 +32,19 @@ import jssTemplate from 'jss-plugin-template';
 
   });
   
-  function Child() {
+  function Child(props) {
     const classes = useStyles();
     return (
-      <button type="button" className={classes.root}>
+      <button onClick={props.customClick}  type="button" className={classes.root}>
         Connexion
       </button>
     );
   }
   
-  function ButtonSignIn() {
+  function ButtonSignIn(props) {
     return (
       <StylesProvider jss={jss}>
-        <Child />
+        <Child customClick = {props.customClick}/>
       </StylesProvider>
     );
   }
