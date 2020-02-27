@@ -14,13 +14,13 @@ import { Link } from 'react-router-dom';
     root: {
       background: 'linear-gradient(#e74042, #b20e10)',
       borderRadius: '3px',
-      fontSize: '16px',
+      fontSize: '12px',
       marginTop:'10px',
       border: '0px',
       color: 'white',
       textShadow: '0 -1px 0px #a90305',
-      height: '32px',
-      padding:' 0 30px',
+      height: '30px',
+      width:"100px",
       cursor:'pointer',
       boxShadow: 'inset 0 1px 0px rgba(255,255,255,0.4),0 1px 0 rgba(255,255,255,0.25)',
       "&:hover": {

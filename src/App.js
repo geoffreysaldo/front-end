@@ -11,6 +11,7 @@ import Boisson from './pages/boisson/boisson.component'
 import Formule from './pages/formule/formule.component'
 import Inscription from './pages/inscription/inscription.component'
 
+
 class App extends Component {
 
   constructor(props){

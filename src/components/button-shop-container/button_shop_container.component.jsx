@@ -4,9 +4,9 @@ import TextField from '@material-ui/core/TextField';
 
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import theme_login from '../../themes/theme_form_login.js';
-
 import FormControl from '@material-ui/core/FormControl';
-
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 import CartIcon from '../cart-icon/cart_icon.component'
 import ButtonSignIn from '../button-signin/button_signin.component';
 import ButtonSignUp from '../button-signup/button_signup.component';
@@ -15,9 +15,14 @@ import './button_shop_container.styles.scss';
 import { login } from '../../services/api_service'
 
 class ButtonShopContainer extends Component { 
+    static propTypes = {
+      cookies: instanceOf(Cookies).isRequired
+    };
     constructor(props){
         super(props)
+        const { cookies } = this.props;
         this.state = {
+            token: cookies.get('token') || "DECONNECTED",
             email:"",
             password:"",
         }
@@ -26,8 +31,8 @@ class ButtonShopContainer extends Component {
         this.handleChangePassword = this.handleChangePassword.bind(this);
     }
 
+
     handleChangeEmail(event){
-        console.log(this.state)
         this.setState({email: event.target.value});
       }
     
@@ -80,12 +85,13 @@ class ButtonShopContainer extends Component {
     formSubmitHandler = () => {
         this.checkEmail(this.state.email).then(() => {
             this.checkPassword(this.state.password).then(() => {
-                login(this.state.address,this.state.password).then(result => {
+                login(this.state.email,this.state.password).then(result => {
                     if(result.error){
                         console.log(result.error)
                     }
                     else {
-                        console.log(result.message)
+                      const { cookies } = this.props;
+                      cookies.set('token',result.token);
                     }
                   }).catch(err => {
                    console.log(err)
@@ -139,4 +145,4 @@ class ButtonShopContainer extends Component {
 }
 
 
-export default ButtonShopContainer
+export default withCookies(ButtonShopContainer)

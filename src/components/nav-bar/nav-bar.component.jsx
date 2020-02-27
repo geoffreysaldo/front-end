@@ -7,6 +7,7 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import theme from '../../themes/theme.js'
 import './nav-bar.styles.scss'
 
+import NavConnection from '../nav-connection/nav_connection.component'
 import ButtonShopContainer from '../button-shop-container/button_shop_container.component'
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
@@ -30,7 +31,7 @@ import { connect } from 'react-redux'
         <BottomNavigationAction  label="Désserts" value="Désserts" component={Link} to={"/dessert"}/>
         <BottomNavigationAction  label="Boissons" value="Boissons" component={Link} to={"/boisson"}/>
         <BottomNavigationAction  label="Formule midi" value="Formule midi" component={Link} to={"/formule"}/>
-        <ButtonShopContainer/>
+        <NavConnection/>
       </BottomNavigation>
       {hidden.hidden ? null : <CartDropdown />}
     </MuiThemeProvider>

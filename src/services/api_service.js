@@ -9,6 +9,16 @@ export async function getProducts(name) {
   return data
 }
 
+export async function getNames(jwt){
+  let response = await fetch(`${API_URL}/names`,
+  {
+    method:'get',
+    headers:{ 'Authorization': 'Bearer ' + jwt }
+  })
+  let data = await response.json();
+  return data;
+}
+
 export async function verifUnicityMail(address){
   let response = await fetch(`${API_URL}/loginAddress/${address}`);
   let data = await response.json();

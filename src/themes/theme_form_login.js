@@ -9,13 +9,14 @@ export default createMuiTheme({
     MuiTextField: {
       root:{
         marginRight: '10px',
-        marginTop: '9px',
+        marginTop: '11px',
         width : '150px',
         borderRadius:'4px',
         borderWidth: '1px'
       }},
     MuiOutlinedInput: {
       root:{ 
+        height:"28px",
         backgroundColor:"#f2f2f2",
         '&:hover': {
             borderColor: 'white',
