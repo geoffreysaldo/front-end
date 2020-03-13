@@ -19,6 +19,28 @@ export async function getNames(jwt){
   return data;
 }
 
+export async function signUp(email, password, firstname, lastname, phone, address, city, postalCode){
+  let response = await fetch(`${API_URL}/signup/`,
+  {
+    method:'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body:JSON.stringify({
+      email: email,
+      password: password,
+      firstname: firstname,
+      lastname: lastname,
+      phone : phone,
+      address: address || null,
+      city: city || null,
+      postalCode: postalCode || null
+    })
+  });
+  let data = await response.json();
+  return data
+}
+
 export async function verifUnicityMail(address){
   let response = await fetch(`${API_URL}/loginAddress/${address}`);
   let data = await response.json();

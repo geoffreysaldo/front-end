@@ -6,8 +6,8 @@ import ButtonNextStep from '../button-next-step/button_next_step.component';
 
 import { verifUnicityMail } from '../../services/api_service'
 import './form_parameter.styles.scss'
-
-import { setEtape } from '../../redux/etapes-inscription/etapes_inscription.actions'
+import { setEtape } from '../../redux/etapes-inscription/etapes_inscription.actions';
+import { setEmail } from '../../redux/compte/email.actions';
 import { connect } from 'react-redux';
 
 
@@ -99,6 +99,10 @@ class FormParameter extends Component {
     }) 
   }
 
+  sendAccount(email, password){
+    this.props.parentCallBack(email, password)
+  }
+
   formSubmitHandler = () => {
      this.checkEmail(this.state.email).then(()=>{
        this.checkPassword(this.state.password).then(() => {
@@ -112,7 +116,10 @@ class FormParameter extends Component {
             else {
               this.setState({
                 checkEmail: "", emailValidator: false
-              }, () => this.props.setEtape(2))
+              }, () => {
+              this.props.setEmail(this.state.email)
+              this.props.setEtape(2)
+            })
             }
           })
          }).catch(err => {
@@ -174,8 +181,8 @@ class FormParameter extends Component {
   );
 }
 }
-
 const mapDispatchedToProps = dispatch => ({
-  setEtape: etape => dispatch(setEtape(etape))
+  setEtape: etape => dispatch(setEtape(etape)),
+  setEmail: email => dispatch(setEmail(email))
 })
-export default connect(null,mapDispatchedToProps)(FormParameter)
+export default connect(null, mapDispatchedToProps)(FormParameter)

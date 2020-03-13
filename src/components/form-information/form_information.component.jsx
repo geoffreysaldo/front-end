@@ -4,6 +4,7 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import ButtonNextStep from '../button-next-step/button_next_step.component';
 
+import { signUp } from '../../services/api_service'
 import { setEtape } from '../../redux/etapes-inscription/etapes_inscription.actions'
 import { connect } from 'react-redux';
 
@@ -179,6 +180,8 @@ class FormInformation extends Component {
 
   
     formSubmitHandler = () => {
+        console.log(this.props.accountEmail)
+        /*
         this.checkLastname(this.state.nom).then(() => {
             this.checkFirstname(this.state.prenom).then(() => {
                 this.checkPhone(this.state.telephone).then(() => {
@@ -201,7 +204,7 @@ class FormInformation extends Component {
               })
        }).catch(err => {
         console.log(err)
-      })
+      })*/
 
     }
   
