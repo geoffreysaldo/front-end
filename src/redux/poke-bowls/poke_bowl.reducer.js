@@ -19,4 +19,4 @@ const INITIAL_STATE = {
   
   }
   
-  export default pokeBowlsReducer
+  export default pokeBowlsReducer;

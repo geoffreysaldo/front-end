@@ -3,11 +3,16 @@ import Paper from '@material-ui/core/Paper';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import ButtonNextStep from '../button-next-step/button_next_step.component';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import theme_progress_bar from '../../themes/theme_progress_bar.js';
 
 import { verifUnicityMail } from '../../services/api_service'
 import './form_parameter.styles.scss'
 import { setEtape } from '../../redux/etapes-inscription/etapes_inscription.actions';
 import { setEmail } from '../../redux/compte/email.actions';
+import { setPassword } from '../../redux/compte/password.actions';
 import { connect } from 'react-redux';
 
 
@@ -23,7 +28,8 @@ class FormParameter extends Component {
                   checkConfirmation:'',
                   emailValidator: false,
                   passwordValidator: false,
-                  confirmationValidator: false }
+                  confirmationValidator: false,
+                  progress:'hidden'}
 
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
@@ -99,9 +105,6 @@ class FormParameter extends Component {
     }) 
   }
 
-  sendAccount(email, password){
-    this.props.parentCallBack(email, password)
-  }
 
   formSubmitHandler = () => {
      this.checkEmail(this.state.email).then(()=>{
@@ -115,9 +118,10 @@ class FormParameter extends Component {
             }
             else {
               this.setState({
-                checkEmail: "", emailValidator: false
+                progress:'visible', checkEmail: "", emailValidator: false
               }, () => {
               this.props.setEmail(this.state.email)
+              this.props.setPassword(this.state.password)
               this.props.setEtape(2)
             })
             }
@@ -138,8 +142,11 @@ class FormParameter extends Component {
   render(){
   return (
     <div style={{display:'flex',flexDirection:'column',height:'500px',width:'450px'}}>
+
     <Paper className="formPaper" style={{background:'#f2f2f2',display:'flex',alignItems:'center',flexDirection:'column',height:'420px',width:'300px',marginLeft:'75px',marginTop:'20px'}}>
         <FormControl>
+        <MuiThemeProvider theme={theme_progress_bar}>
+        <LinearProgress style={{visibility:this.state.progress,marginTop:"10px"}} />
             <label style={{marginLeft:'10px',marginTop:'20px'}}>Adresse email</label>
             <TextField type="email" 
                        name="email"
@@ -169,8 +176,10 @@ class FormParameter extends Component {
                        value={this.state.confirmation} 
                        onChange={this.handleChangeConfirmation} /> 
             <span style={{color:"red", fontSize:"13px", fontStyle:"italic", marginLeft:"10px"}}>{this.state.checkConfirmation}</span>
+            </MuiThemeProvider>
         </FormControl>
         <ButtonNextStep customClick={this.formSubmitHandler} />
+
     </Paper>
     <div style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-around',height:'100px',width:'450px',fontSize:'11px'}}>
       <div style={{display:'flex',color:'red'}}>1- Paramètres du compte</div> 
@@ -183,6 +192,7 @@ class FormParameter extends Component {
 }
 const mapDispatchedToProps = dispatch => ({
   setEtape: etape => dispatch(setEtape(etape)),
-  setEmail: email => dispatch(setEmail(email))
+  setEmail: email => dispatch(setEmail(email)),
+  setPassword: password => dispatch(setPassword(password))
 })
 export default connect(null, mapDispatchedToProps)(FormParameter)

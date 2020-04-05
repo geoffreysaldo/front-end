@@ -10,7 +10,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <CookiesProvider>
-        <App />
+        <App  />
       </CookiesProvider>
     </BrowserRouter>
   </Provider>

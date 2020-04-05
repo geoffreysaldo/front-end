@@ -3,9 +3,14 @@ import Paper from '@material-ui/core/Paper';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import ButtonNextStep from '../button-next-step/button_next_step.component';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-import { signUp } from '../../services/api_service'
-import { setEtape } from '../../redux/etapes-inscription/etapes_inscription.actions'
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import theme_progress_bar from '../../themes/theme_progress_bar.js';
+
+import { signUp } from '../../services/api_service';
+import { setInformationInscription } from '../../redux/retour-information-inscription/information_inscription.actions';
+import { setEtape } from '../../redux/etapes-inscription/etapes_inscription.actions';
 import { connect } from 'react-redux';
 
 class FormInformation extends Component {
@@ -29,7 +34,8 @@ class FormInformation extends Component {
                     phoneValidator: false,
                     addressValidator: false,
                     cityValidator: false,
-                    postalcodeValidator: false
+                    postalcodeValidator: false,
+                    progress:'hidden'
                  }
         
         this.handleChangeLastname = this.handleChangeLastname.bind(this);
@@ -37,7 +43,9 @@ class FormInformation extends Component {
         this.handleChangePhone = this.handleChangePhone.bind(this);              
         this.handleChangeAddress = this.handleChangeAddress.bind(this);
         this.handleChangeCity = this.handleChangeCity.bind(this);
-        this.handleChangePostalcode = this.handleChangePostalcode.bind(this);     
+        this.handleChangePostalcode = this.handleChangePostalcode.bind(this);
+        
+
     }
 
     handleChangeLastname(event){
@@ -180,15 +188,27 @@ class FormInformation extends Component {
 
   
     formSubmitHandler = () => {
-        console.log(this.props.accountEmail)
-        /*
         this.checkLastname(this.state.nom).then(() => {
             this.checkFirstname(this.state.prenom).then(() => {
                 this.checkPhone(this.state.telephone).then(() => {
                     this.checkAddress(this.state.adresse).then(() => {
                         this.checkCity(this.state.ville).then(() => {
                             this.checkPostalcode(this.state.codePostal).then(() =>{
-                                this.props.setEtape(3)
+                                this.setState({progress:'visible'})
+                                signUp(this.props.email.email, this.props.password.password, this.state.prenom, this.state.nom, this.state.telephone, this.state.adresse, this.state.ville, this.state.codePostal)
+                                    .then(data => {
+                                        console.log(data)
+                                        this.props.setInformationInscription(data)
+                                        this.props.setEtape(3)
+                                        })
+                                    .catch(error => {
+                                        this.props.setInformationInscription(error)
+                                        this.props.setEtape(3)
+                                })})
+                                .catch(err => {
+                                    let error = {error:"Une erreur s'est produite, veuillez recommencer svp"}
+                                    this.props.setInformationInscription(error)
+                                    this.props.setEtape(3)
                             }).catch(err => {
                                 console.log(err)
                                 })
@@ -204,7 +224,7 @@ class FormInformation extends Component {
               })
        }).catch(err => {
         console.log(err)
-      })*/
+      })
 
     }
   
@@ -212,10 +232,16 @@ class FormInformation extends Component {
   
     render(){
     return (
-      <div style={{display:'flex',flexDirection:'column', alignItems:'center',height:'540px',width:'70%'}}>
-      <Paper className="formPaper" style={{display:'flex',flexDirection:'column',alignItems:"center",background:'#f2f2f2',height:'460px',width:'600px',marginTop:'20px'}}>
-          <FormControl style={{display:'flex',flexDirection:'row',alignItems:"space-between"}}>
-            <div style={{display:'flex',flexDirection:'column',width:"300px"}}>
+      <div style={{display:'flex',flexDirection:'column', alignItems:'center',height:'560px',width:'70%'}}>
+      <Paper className="formPaper" style={{display:'flex',flexDirection:'column',alignItems:"center",background:'#f2f2f2',height:'460px',width:'620px',marginTop:'20px'}}>
+          <FormControl style={{display:'flex',flexDirection:'column',alignItems:"space-between",marginLeft:'10px', marginRight:"10px"}}>
+            <MuiThemeProvider theme={theme_progress_bar}>
+            <LinearProgress style={{visibility:this.state.progress,marginTop:"10px",colorPrimary:"primary"}} />
+
+          <div style={{display:'flex',flexDirection:'row',width:"600px"}}>
+
+            <div style={{display:'flex',flexDirection:'column',width:"300px",color:"secondary"}}>
+
             <label style={{marginLeft:'10px',marginTop:'20px'}}>Nom *</label>
             <TextField type="text" 
                        name="nom"
@@ -244,37 +270,42 @@ class FormInformation extends Component {
                        onChange={this.handleChangePhone} />
     {this.state.checkPhone != "" ? <span style={{color:"red", fontSize:"13px", fontStyle:"italic", marginLeft:"10px"}}>{this.state.checkPhone}</span> : <div style={{width:"290px",height:"17px"}}></div> }          
             </div>
-            <div style={{display:'flex',flexDirection:'column'}}>
-            <label style={{marginLeft:'10px',marginTop:'20px'}}>Adresse</label>
+            <div style={{display:'flex',flexDirection:'column',width:"300px"}}>
+            <label style={{marginLeft:'40px',marginTop:'20px'}}>Adresse</label>
             <TextField type="text" 
                        name="adresse"
                        error={this.state.addressValidator}
-                       style={{marginLeft:'10px',marginTop:'10px',background:'white', width:'250px'}} 
+                       style={{marginLeft:'40px',marginTop:'10px',background:'white', width:'250px'}} 
                        variant="outlined"  
                        value={this.state.address} 
                        onChange={this.handleChangeAddress} />
     {this.state.checkAddress != "" ? <span style={{color:"red", fontSize:"13px", fontStyle:"italic", marginLeft:"10px"}}>{this.state.checkAddress}</span> : <div style={{width:"290px",height:"17px"}}></div> }                              
-            <label style={{marginLeft:'10px',marginTop:'20px'}}>Ville</label>
+            <label style={{marginLeft:'40px',marginTop:'20px'}}>Ville</label>
             <TextField type="text" 
                        name="ville"
                        error={this.state.cityValidator}
-                       style={{marginLeft:'10px',marginTop:'10px',background:'white', width:'250px'}} 
+                       style={{marginLeft:'40px',marginTop:'10px',background:'white', width:'250px'}} 
                        variant="outlined"  
                        value={this.state.city} 
                        onChange={this.handleChangeCity} />
     {this.state.checkCity != "" ? <span style={{color:"red", fontSize:"13px", fontStyle:"italic", marginLeft:"10px"}}>{this.state.checkCity}</span> : <div style={{width:"290px",height:"17px"}}></div> }          
-            <label style={{marginLeft:'10px',marginTop:'20px'}}>Code postal</label>
+            <label style={{marginLeft:'40px',marginTop:'20px'}}>Code postal</label>
             <TextField type="text" 
                        name="codePostal"
                        error={this.state.postalcodeValidator}
-                       style={{marginLeft:'10px',marginTop:'10px',background:'white', width:'250px'}} 
+                       style={{marginLeft:'40px',marginTop:'10px',background:'white', width:'250px'}} 
                        variant="outlined"  
                        value={this.state.postalcode} 
                        onChange={this.handleChangePostalcode} />
     {this.state.checkPostalcode != "" ? <span style={{color:"red", fontSize:"13px", fontStyle:"italic", marginLeft:"10px"}}>{this.state.checkPostalcode}</span>  : <div style={{width:"290px",height:"17px"}}></div> }          
-            </div>                   
+                </div>  
+            </div>   
+            </MuiThemeProvider>
+              
           </FormControl>
+
           <ButtonNextStep customClick={this.formSubmitHandler} style={{display:'flex',flexDirection:'column'}}/>
+
       </Paper>
       <div style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'space-around',height:'100px',width:'450px',fontSize:'11px'}}>
         <div style={{display:'flex', color:'green'}}>1- Paramètres du compte</div> 
@@ -282,12 +313,19 @@ class FormInformation extends Component {
         <div style={{display:'flex'}}>3- Validation</div>
         </div>
       </div>
+
     );
   }
 }
 
-const mapDispatchedToProps = dispatch => ({
-    setEtape: etape => dispatch(setEtape(etape))
+const mapStateToProps = state =>({
+    email : state.email,
+    password: state.password
   })
 
-export default connect(null,mapDispatchedToProps)(FormInformation)
+const mapDispatchedToProps = dispatch => ({
+    setEtape: etape => dispatch(setEtape(etape)),
+    setInformationInscription: informations => dispatch(setInformationInscription(informations))
+  })
+
+export default connect(mapStateToProps,mapDispatchedToProps)(FormInformation)

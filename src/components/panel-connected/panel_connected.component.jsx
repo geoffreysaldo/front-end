@@ -7,18 +7,19 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import { Link } from 'react-router-dom';
+
 
 import CartIcon from '../cart-icon/cart_icon.component';
 
 import { ReactComponent as UserAccount } from '../../assets/user.svg';
+import {isAuthenticated,  signout} from '../../services/auth-helper';
 import { getNames } from '../../services/api_service';
 import './panel_connected.styles.scss';
-import { withCookies, Cookies } from 'react-cookie';
 
 class PanelConnected extends Component{
     constructor(props){
         super(props)
-        const { cookies } = this.props;
         this.state = {
             open:false,
             name:""
@@ -28,7 +29,7 @@ class PanelConnected extends Component{
     }
 
     componentDidMount(){
-        getNames(this.props.cookies.get('token')).then(
+        getNames(isAuthenticated()).then(
             result => {
                 this.setState({
                     name:result.firstname+" "+result.lastname
@@ -44,7 +45,8 @@ class PanelConnected extends Component{
     }
 
     logOut(){
-        this.props.cookies.remove('token')
+        signout()
+        this.props.changeAuthenticate()
     }
 
 
@@ -59,8 +61,11 @@ class PanelConnected extends Component{
                     </ListItem>
                     <Collapse in={this.state.open} timeout="auto" unmountOnExit style={{background:"#f2f2f2",borderRadius:"4px"}}>
                         <List >
-                            <ListItem  button onClick={this.logOut} >
-                            Déconnexion
+                            <ListItem button component={Link} to={"/compte"}>
+                                Mon compte
+                            </ListItem>
+                            <ListItem  button onClick={this.logOut} component={Link} to={"/"} >
+                                Déconnexion
                             </ListItem>
                         </List>
                     </Collapse>
@@ -70,4 +75,4 @@ class PanelConnected extends Component{
         )}
 }
 
-export default withCookies(PanelConnected)
+export default PanelConnected

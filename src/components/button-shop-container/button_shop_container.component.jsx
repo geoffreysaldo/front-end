@@ -1,35 +1,36 @@
 import React, { Component } from 'react';
 
+import DialogFailConnection from '../dialog-fail-connection/dialog_fail_connection.component';
+
 import TextField from '@material-ui/core/TextField';
 
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import theme_login from '../../themes/theme_form_login.js';
 import FormControl from '@material-ui/core/FormControl';
-import { instanceOf } from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
+
 import CartIcon from '../cart-icon/cart_icon.component'
 import ButtonSignIn from '../button-signin/button_signin.component';
 import ButtonSignUp from '../button-signup/button_signup.component';
 import './button_shop_container.styles.scss';
+import {authenticate, isAuthenticated} from '../../services/auth-helper';
 
 import { login } from '../../services/api_service'
 
 class ButtonShopContainer extends Component { 
-    static propTypes = {
-      cookies: instanceOf(Cookies).isRequired
-    };
     constructor(props){
         super(props)
-        const { cookies } = this.props;
         this.state = {
-            token: cookies.get('token') || "DECONNECTED",
             email:"",
             password:"",
+            dialogPannel: false
         }
 
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
+        this.handleClose = this.handleClose.bind(this)
     }
+
+
 
 
     handleChangeEmail(event){
@@ -39,6 +40,12 @@ class ButtonShopContainer extends Component {
     handleChangePassword(event){
         this.setState({password: event.target.value});
       }
+
+    handleClose(){
+      this.setState({
+        dialogPannel: false
+      })
+    }
 
     checkEmail(email){
         return new Promise((resolve, reject)=> {
@@ -85,17 +92,22 @@ class ButtonShopContainer extends Component {
     formSubmitHandler = () => {
         this.checkEmail(this.state.email).then(() => {
             this.checkPassword(this.state.password).then(() => {
-                login(this.state.email,this.state.password).then(result => {
-                    if(result.error){
-                        console.log(result.error)
-                    }
-                    else {
-                      const { cookies } = this.props;
-                      cookies.set('token',result.token);
-                    }
-                  }).catch(err => {
-                   console.log(err)
-                 })
+                login(this.state.email,this.state.password)
+                    .then(result => {
+                      authenticate(result.token)
+                      this.props.changeAuthenticate()
+                      /*const { cookies } = this.props;
+                      cookies.set('token',result.token);*/
+                    })
+                    .catch(err => {
+                      console.log(err)
+                      if(err == 401){
+                        this.setState({
+                          dialogPannel: true
+                        })
+                        console.log(this.state.dialogPannel)
+                      }
+                })
             }).catch(err => {
                 console.log(err)
             })
@@ -139,10 +151,11 @@ class ButtonShopContainer extends Component {
             <ButtonSignIn customClick={this.formSubmitHandler}/>
             <ButtonSignUp/>
             <CartIcon className="cart-icon"/>
+            <DialogFailConnection  open={this.state.dialogPannel} onClose={this.handleClose}/>
         </div>
         )
     }
 }
 
 
-export default withCookies(ButtonShopContainer)
+export default ButtonShopContainer

@@ -8,6 +8,8 @@ import boissonsReducer from './boissons/boisson.reducer';
 import formulesReducer from './formules/formule.reducer';
 import etapeReducer from './etapes-inscription/etapes_inscription.reducer'
 import emailReducer from './compte/email.reducer';
+import passwordReducer from './compte/password.reducer';
+import informationInscriptionReducer from './retour-information-inscription/information_inscription.reducer';
 
 export default combineReducers({
     commandProducts:commandProductsReducer,
@@ -18,5 +20,7 @@ export default combineReducers({
     boissons:boissonsReducer,
     formules:formulesReducer,
     etape:etapeReducer,
-    email:emailReducer
+    email:emailReducer,
+    password:passwordReducer,
+    informations:informationInscriptionReducer,
 })
