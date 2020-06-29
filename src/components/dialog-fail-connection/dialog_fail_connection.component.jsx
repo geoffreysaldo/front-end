@@ -13,7 +13,7 @@ export default function DialogFailConnection(props){
 
     return(
         <Dialog  open={open} >
-            <div style={{display:'flex',alignIteml:'center', justifyContent:'center',width:'260px',height:'200px'}}>
+            <div style={{display:'flex',alignItems:'center', justifyContent:'center',width:'260px',height:'200px'}}>
                
                <div style={{paddingTop:'40px', paddingLeft:'20px', paddingRight:'20px',textAlign: 'center'}}>
                

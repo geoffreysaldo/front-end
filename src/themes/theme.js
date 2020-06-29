@@ -25,6 +25,12 @@ export default createMuiTheme({
         color:"#c6c6c6",
         fontFamily:"Gelasio"
       }
+    },
+    MuiTableHead:{
+      root:{
+        background: 'linear-gradient(#343333, #090909)',
+        fontWeight:'bold'
+      }
     }
   }
 });

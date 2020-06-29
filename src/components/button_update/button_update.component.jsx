@@ -20,7 +20,7 @@ import jssTemplate from 'jss-plugin-template';
       color: 'white',
       textShadow: '0 -1px 0px #a90305',
       height: '30px',
-      width:"100px",
+      width:"150px",
       cursor:'pointer',
       boxShadow: 'inset 0 1px 0px rgba(255,255,255,0.4),0 1px 0 rgba(255,255,255,0.25)',
       "&:hover": {

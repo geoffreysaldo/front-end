@@ -197,7 +197,6 @@ class FormInformation extends Component {
                                 this.setState({progress:'visible'})
                                 signUp(this.props.email.email, this.props.password.password, this.state.prenom, this.state.nom, this.state.telephone, this.state.adresse, this.state.ville, this.state.codePostal)
                                     .then(data => {
-                                        console.log(data)
                                         this.props.setInformationInscription(data)
                                         this.props.setEtape(3)
                                         })

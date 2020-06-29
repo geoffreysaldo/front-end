@@ -1,5 +1,4 @@
-import { addItemToCommand } from './command_products.utils'
-import { deleteItemToCommand } from './command_products.utils'
+import { addItemToCommand, deleteItemToCommand, removeItemToCommand } from './command_products.utils'
 
 
 const INITIAL_STATE = {
@@ -18,6 +17,11 @@ const INITIAL_STATE = {
           ...state,
           commandProducts: deleteItemToCommand(state.commandProducts,action.payload)
         }
+      case 'REMOVE_COMMAND_PRODUCT':
+        return {
+          ...state,
+          commandProducts: removeItemToCommand(state.commandProducts,action.payload)
+          }
       default:
         return state;
     }

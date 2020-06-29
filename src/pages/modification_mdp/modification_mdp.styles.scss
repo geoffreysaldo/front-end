@@ -1,0 +1,94 @@
+.pageModificationMdp{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:100%
+}
+
+.paperModificationMdp{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    width:40%;
+    min-width:620px;
+    margin-top:10px
+}
+
+.formControl{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:'center';
+    align-items:center;
+}
+
+.paperFormControl{
+    min-width:300px;
+    margin:10px;
+    width:50%
+}
+
+.divLabel{
+    margin-top:10px;
+    width:90%
+}
+
+.divModificationMdp{
+    display:flex;
+    flex-direction:row;
+    justify-content:flex-start;
+    font-size:24px;
+    margin:20px
+}
+
+.label{
+    margin-top:10px;
+    margin-left:10px;
+}
+
+.centerDiv{
+    width: 100%;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+    align-items:center
+}
+
+.reglesMdp{
+    min-width:280px;
+    font-size:15px;
+    width:35%;
+    text-align:center;
+    .red{
+        color:'red'
+    }
+}
+
+.spanModificationMdp{
+    margin-left:5px;
+    margin-top:1px;
+}
+
+.error{
+    font-style:italic;
+    color:red;
+    font-size: 14px;
+}
+
+
+.divError{
+    width:90%;
+    margin-left:10px;
+}
+
+.paperSucceed{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    font-size:18px;
+    margin:10px;
+    width:80%;
+    height:150px
+}

@@ -12,13 +12,13 @@ import { Link } from 'react-router-dom';
   
   const useStyles = makeStyles({
     root: {
-      background: 'linear-gradient(#e74042, #b20e10)',
+      background: 'linear-gradient(#CF3737, #B60202)',
       borderRadius: '3px',
       fontSize: '12px',
       marginTop:'10px',
       border: '0px',
       color: 'white',
-      textShadow: '0 -1px 0px #a90305',
+      textShadow: '0 -1px 0px #7C0202',
       height: '30px',
       width:"100px",
       cursor:'pointer',

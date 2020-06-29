@@ -17,6 +17,10 @@ import {isAuthenticated,  signout} from '../../services/auth-helper';
 import { getNames } from '../../services/api_service';
 import './panel_connected.styles.scss';
 
+import { connect } from 'react-redux';
+import { setAdmin } from '../../redux/admin/admin.actions';
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+
 class PanelConnected extends Component{
     constructor(props){
         super(props)
@@ -47,6 +51,9 @@ class PanelConnected extends Component{
     logOut(){
         signout()
         this.props.changeAuthenticate()
+        if(this.props.admin){
+            this.props.setAdmin(false)
+        }
     }
 
 
@@ -67,12 +74,22 @@ class PanelConnected extends Component{
                             <ListItem  button onClick={this.logOut} component={Link} to={"/"} >
                                 Déconnexion
                             </ListItem>
+
                         </List>
                     </Collapse>
                 </div>
                 <CartIcon/>
+                {this.props.hidden ? null : <CartDropdown />}
             </div>
         )}
 }
+const mapStateToProps = state => ({
+    admin : state.admin.admin,
+    hidden : state.cart.hidden
+  })
 
-export default PanelConnected
+const mapDispatchToProps = dispatch => ({
+    setAdmin: value => dispatch(setAdmin(value))
+  })
+
+export default connect(mapStateToProps,mapDispatchToProps)(PanelConnected)

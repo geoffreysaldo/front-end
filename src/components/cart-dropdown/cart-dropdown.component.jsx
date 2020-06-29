@@ -14,6 +14,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
+import { Link } from 'react-router-dom';
 
 const CartDropdown  = (props) => (
 
@@ -27,7 +28,7 @@ const CartDropdown  = (props) => (
             <ListItemAvatar>
               <Avatar />
             </ListItemAvatar>
-              <ListItemText primary={<div style={{alignItems:"center"}}>{product.name}</div>}
+              <ListItemText primary={<div style={{alignItems:"center", fontSize:"12px"}}>{product.name}</div>}
                 secondary={
                     <React.Fragment>
                       <Typography
@@ -35,7 +36,7 @@ const CartDropdown  = (props) => (
                       variant="body2"
                       color="textPrimary"
                       >
-                {product.price} x {product.quantity}
+                 {product.quantity} x {product.price.toFixed(2)} € 
               </Typography>
             </React.Fragment>
 
@@ -54,11 +55,11 @@ const CartDropdown  = (props) => (
       <div className='footer'>
         <Divider />
           <div  style={{fontWeight:"bold",margin:"10px"}} >
-          Total : {props.commandProducts.reduce((acc,product) => acc + product.quantity * product.price, 0).toFixed(2) }
+          Total TCC: {props.commandProducts.reduce((acc,product) => acc + product.quantity * product.price, 0).toFixed(2) } €
           </div >
       </div>
 
-            <Button variant="contained" color="primary" onClick={ () => console.log(props)} >Commander</Button>
+            <Button variant="contained" color="primary" ><Link style={{color:'white',width:'120%'}} to="/validation_commande">Commander</Link></Button>
         </div>
       );
 

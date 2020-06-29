@@ -16,7 +16,7 @@ class Inscription extends Component {
       1 : <div style={{display:"flex",flexDirection:"raw",justifyContent: "space-between",alignItems:"center",minWidth:"700px",width:"90%",margin: "10px"}}><InfoSignup/><FormParameter parentCallBack = {this.callbackAccount}/></div>,
       2 : <FormInformation />,
       3 : <FormValidation/>,
-      4 : <SignupConfirmation/>
+      //4 : <SignupConfirmation/>
     }
   }
 

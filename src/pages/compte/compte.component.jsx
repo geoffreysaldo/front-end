@@ -302,7 +302,7 @@ class Compte extends Component{
             this.checkPostalcode(this.state.updatePostalCode).then(() => {
                 this.checkCity(this.state.updateCity).then(() => {
                     updateAddress(this.state).then(result => {
-                        this.setState({checkAddressPassword:'', passwordAddressValidator:false, progress:false, address:result.adress, postalCode: result.postalCode, city: result.city })
+                        this.setState({checkAddressPassword:'', passwordAddressValidator:false, progress:false, address:result.address, postalCode: result.postalCode, city: result.city })
                     }).catch(err => {
                         if(err == 401){
                             this.setState({

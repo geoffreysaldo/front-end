@@ -20,7 +20,7 @@ class Entree extends Component {
   componentDidMount(){
     this.props.resetEntrees()
     getProducts("entree").then(
-      category => category[0].products.map(product => this.props.setEntrees(product))
+      products => products.map(product => this.props.setEntrees(product))
     )
   }
     
