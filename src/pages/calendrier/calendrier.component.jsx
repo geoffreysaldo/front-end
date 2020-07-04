@@ -13,6 +13,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import theme_progress_bar from '../../themes/theme_progress_bar';
+import theme_slider from '../../themes/theme_slider.js';
+
 
 // import api
 
@@ -155,17 +157,17 @@ class Calendrier extends Component {
                 </Paper>
                 </MuiThemeProvider>
                 :
-            <Paper style={{display:'flex',flexDirection:'row',alignItems:'center',width:'75%',marginTop:'20px',justifyContent:'flex-start',background:'#f2f2f2'}}>
+            <Paper style={{display:'flex',flexDirection:'row',alignItems:'center',width:'95%',marginTop:'20px',justifyContent:'flex-start',background:'#f2f2f2'}}>
                 {this.state.openTime.map((element,index) => (
                   index === 0 ? <Paper key={index} style={{marginLeft:'10px',display:'flex',flexDirection:'column',alignItems:'center',width:'15%',marginTop:'10px',background:'#f2f2f2',marginBottom:'10px',height:'600px'}}>
                   <div style={{borderRadius:'5px 0px 0px 0px',color:'white',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',width:'100%',height:'40px',background:'#343333'}}>{dayMap.get(index)}</div>
                   <div style={{height:'100%',width:'100%',background:'white',display:'flex',flexDirection:'column',alignItems:'center'}}>
                   <div style={{display:'flex',flexDirection:'row',alignItems:'center',width:'100%',height:'45%',margin:'5%'}}>
-                  <IOSSwitch checked={element.lunch.disabled} onClick={() => this.onSwitchChange(element.id,"lunchTime",element.lunch.disabled,element.lunch.start, element.lunch.stop)}  />
+                  <MuiThemeProvider theme={theme_slider}>
 
+                  <IOSSwitch checked={element.lunch.disabled} onClick={() => this.onSwitchChange(element.id,"lunchTime",element.lunch.disabled,element.lunch.start, element.lunch.stop)}  />
                         <Slider 
                               disabled={!element.lunch.disabled}
-                              style={{margin:'10px'}}
                               step={7.69}
                               min={0}
                               max={100}
@@ -175,13 +177,16 @@ class Calendrier extends Component {
                               marks={marksJour}
                               onChangeCommitted={(e,val) => this.handleLunchTime(e,val,index,element.lunch.disabled)}
                           />
+                    </MuiThemeProvider>
+
                     </div>
                     <div style={{display:'flex',flexDirection:'row',alignItems:'center',width:'100%',height:'45%',margin:'5%'}}>
+                    <MuiThemeProvider theme={theme_slider}>
+
                     <IOSSwitch checked={element.dinner.disabled} onClick={() => this.onSwitchChange(element.id,"dinnerTime",element.dinner.disabled, element.dinner.start, element.dinner.stop)}  />
 
                       <Slider 
                               disabled={!element.dinner.disabled}
-                              style={{margin:'10px'}}
                               step={7.69}
                               color="secondary"
                               orientation="vertical"
@@ -190,6 +195,8 @@ class Calendrier extends Component {
                               marks={marksSoir}
                               onChangeCommitted={(e,val) => this.handleDinnerTime(e,val,index,element.dinner.disabled)}
                           />
+                                              </MuiThemeProvider>
+
                   </div>
                   </div>
                   </Paper> 
@@ -201,7 +208,6 @@ class Calendrier extends Component {
                   <IOSSwitch checked={element.lunch.disabled} onClick={() => this.onSwitchChange(element.id,"lunchTime",element.lunch.disabled,element.lunch.start, element.lunch.stop)}  />
                       <Slider 
                               disabled={!element.lunch.disabled}
-                              style={{margin:'10px'}}
                               step={7.69}
                               min={0}
                               max={100}
@@ -216,7 +222,6 @@ class Calendrier extends Component {
                   <IOSSwitch checked={element.dinner.disabled} onClick={() => this.onSwitchChange(element.id,"dinnerTime",element.dinner.disabled, element.dinner.start, element.dinner.stop)}  />
                       <Slider 
                               disabled={!element.dinner.disabled}
-                              style={{margin:'10px'}}
                               step={7.69}
                               color="secondary"
                               orientation="vertical"
@@ -236,7 +241,6 @@ class Calendrier extends Component {
                   <IOSSwitch checked={element.lunch.disabled} onClick={() => this.onSwitchChange(element.id,"lunchTime",element.lunch.disabled,element.lunch.start, element.lunch.stop)}  />
                       <Slider 
                               disabled={!element.lunch.disabled}
-                              style={{margin:'10px'}}
                               step={7.69}
                               min={0}
                               max={100}
@@ -250,7 +254,6 @@ class Calendrier extends Component {
                   <IOSSwitch checked={element.dinner.disabled} onClick={() => this.onSwitchChange(element.id,"dinnerTime",element.dinner.disabled, element.dinner.start, element.dinner.stop)}  />
                       <Slider 
                               disabled={!element.dinner.disabled}
-                              style={{margin:'10px'}}
                               step={7.69}
                               color="secondary"
                               orientation="vertical"

@@ -136,8 +136,8 @@ class ButtonShopContainer extends Component {
                     name="email"
                     type="email"
                     size ="small"
+                    autoComplete='off'
                     style={{width:"150px"}}
-                    id="outlined-secondary"
                     placeholder="Email"
                     variant="outlined"
                     value={this.state.email} 
@@ -147,9 +147,9 @@ class ButtonShopContainer extends Component {
                 <TextField
                     name="password"
                     type="password"
+                    autoComplete='off'
                     size ='small'
                     style={{width:"150px"}}
-                    id="outlined-secondary"
                     placeholder="Mot de passe"
                     variant="outlined"
                     value={this.state.password} 
